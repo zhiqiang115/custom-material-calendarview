@@ -25,8 +25,8 @@ class WeekDayView extends TextView {
         super(context);
 
         setGravity(Gravity.CENTER);
-        setBackgroundColor(context.getResources().getColor(R.color.header_week_bg));
-        setTextColor(context.getResources().getColor(R.color.header_week_text));
+        setBackgroundColor(context.getResources().getColor(R.color.calendar_header_week_bg));
+        setTextColor(context.getResources().getColor(R.color.calendar_header_week_text));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             setTextAlignment(TEXT_ALIGNMENT_CENTER);
         }

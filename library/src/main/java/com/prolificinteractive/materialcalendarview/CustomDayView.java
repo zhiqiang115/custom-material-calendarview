@@ -4,14 +4,12 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,8 +24,21 @@ public class CustomDayView extends LinearLayout {
     protected int selectionColor = Color.BLACK;
     private int mTextDayColor = Color.BLACK;
 
+    private int mColorNegativePrice;
+    private int mColorPositivePrice;
+    private int mBackgroundColorNote;
+    private int mColorDisableDay;
+    private int mColorEnableDay;
+    private int mPaddingNoteItem;
+
     public CustomDayView(Context context) {
         super(context);
+        mColorNegativePrice = context.getResources().getColor(R.color.calendar_color_negative_price);
+        mColorPositivePrice = context.getResources().getColor(R.color.calendar_color_positive_price);
+        mBackgroundColorNote = context.getResources().getColor(R.color.calendar_color_background_note);
+        mColorDisableDay = context.getResources().getColor(R.color.calendar_color_disable_day);
+        mColorEnableDay = context.getResources().getColor(R.color.calendar_color_enable_day);
+        mPaddingNoteItem = context.getResources().getDimensionPixelOffset(R.dimen.padding_note_item);
         init();
     }
 
@@ -78,7 +89,7 @@ public class CustomDayView extends LinearLayout {
 
 
     private void updateLayoutItem() {
-        int textColor = Color.GRAY;
+        int textColor = mColorDisableDay;
         if (mCustomDay != null) {
             if (mCustomDay.getEnable()) {
                 if (mCustomDay.getNote() != null && mCustomDay.getNote().size() > 0) {
@@ -89,8 +100,12 @@ public class CustomDayView extends LinearLayout {
                 }
                 if (mCustomDay.getPrice() != null) {
                     addView(createPriceView(mCustomDay.getPrice()));
+                } else {
+                    if (!TextUtils.isEmpty(mCustomDay.getStringMemo())) {
+                        addView(createDescriptionView(mCustomDay.getStringMemo()));
+                    }
                 }
-                textColor = Color.BLACK;
+                textColor = mColorEnableDay;
             }
             mTextViewDay.setTextColor(textColor);
             mTextViewDay.invalidate();
@@ -143,11 +158,11 @@ public class CustomDayView extends LinearLayout {
         textView.setTextColor(Color.WHITE);
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.text_size_custom_day));
-        textView.setPadding(0,5,0,5);
+        textView.setPadding(0,mPaddingNoteItem,0,mPaddingNoteItem);
         textView.setText(note);
-        textView.setBackgroundColor(Color.RED);
+        textView.setBackgroundColor(mBackgroundColorNote);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0,5,0,0);
+        layoutParams.setMargins(0,mPaddingNoteItem,0,0);
         textView.setLayoutParams(layoutParams);
         return textView;
     }
@@ -162,14 +177,35 @@ public class CustomDayView extends LinearLayout {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.text_size_custom_day));
         if (price >= 0) {
             textView.setText("+" + String.valueOf(price));
-            textView.setTextColor(Color.BLACK);
+            textView.setTextColor(mColorNegativePrice);
         } else {
             textView.setText(String.valueOf(price));
-            textView.setTextColor(Color.RED);
+            textView.setTextColor(mColorPositivePrice);
         }
         textView.setGravity(Gravity.CENTER);
-        setPadding(5,5,5,5);
+        setPadding(mPaddingNoteItem,mPaddingNoteItem,mPaddingNoteItem,mPaddingNoteItem*2);
         textView.setTypeface(null, Typeface.BOLD);
+        relativeLayout.addView(textView);
+        RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        textView.setLayoutParams(layoutParams1);
+
+        return relativeLayout;
+    }
+
+    private RelativeLayout createDescriptionView(String text) {
+        RelativeLayout relativeLayout = new RelativeLayout(getContext());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        layoutParams.weight = 1;
+        relativeLayout.setLayoutParams(layoutParams);
+
+        TextView textView = new TextView(getContext());
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.text_size_custom_day));
+        textView.setText(text);
+        textView.setTextColor(mColorNegativePrice);
+        textView.setGravity(Gravity.CENTER);
+        setPadding(mPaddingNoteItem,mPaddingNoteItem,mPaddingNoteItem,mPaddingNoteItem*2);
+//        textView.setTypeface(null, Typeface.BOLD);
         relativeLayout.addView(textView);
         RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

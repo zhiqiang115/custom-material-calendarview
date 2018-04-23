@@ -12,6 +12,7 @@ public class CustomDay {
     private List<String> mNote;
     private Integer mPrice;
     private Boolean mIsEnable = true;
+    private String mStringMemo = null;
 
     public CustomDay(Integer day, List<String> note, Integer price) {
         mDay = day;
@@ -24,6 +25,14 @@ public class CustomDay {
         mNote = note;
         mPrice = price;
         mIsEnable = isEnable;
+    }
+
+    public CustomDay(Integer day, List<String> note, Integer price, Boolean isEnable, String memo) {
+        mDay = day;
+        mNote = note;
+        mPrice = price;
+        mIsEnable = isEnable;
+        mStringMemo = memo;
     }
 
     public Integer getDay() {
@@ -56,5 +65,13 @@ public class CustomDay {
 
     public void setEnable(Boolean enable) {
         mIsEnable = enable;
+    }
+
+    public String getStringMemo() {
+        return mStringMemo;
+    }
+
+    public void setStringMemo(String stringMemo) {
+        mStringMemo = stringMemo;
     }
 }

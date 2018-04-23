@@ -91,7 +91,7 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
     protected void addViewLines() {
         View view = new View(getContext());
         view.setTag(-1);
-        view.setBackgroundColor(getContext().getResources().getColor(R.color.line_week));
+        view.setBackgroundColor(getContext().getResources().getColor(R.color.calendar_line_week));
         addView(view, new LayoutParams());
     }
 

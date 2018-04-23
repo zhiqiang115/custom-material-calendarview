@@ -18,7 +18,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.CheckedTextView;
 
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView.ShowOtherDates;
 import com.prolificinteractive.materialcalendarview.format.DayFormatter;
@@ -47,12 +46,14 @@ class DayView extends CustomDayView {
     private boolean isInRange = true;
     private boolean isInMonth = true;
     private boolean isDecoratedDisabled = false;
+    private int mColorDisableDayOfMonth;
+
     @ShowOtherDates
     private int showOtherDates = MaterialCalendarView.SHOW_DEFAULTS;
 
     public DayView(Context context, CalendarDay day) {
         super(context);
-
+        mColorDisableDayOfMonth = context.getResources().getColor(R.color.calendar_color_disable_day);
         fadeTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
         setSelectionColor(this.selectionColor);
@@ -154,7 +155,7 @@ class DayView extends CustomDayView {
         }
 
         if (!isInMonth && shouldBeVisible) {
-            setTextColor(Color.GRAY);
+            setTextColor(mColorDisableDayOfMonth);
 //            setTextColor(getTextColors().getColorForState(
 //                    new int[]{-android.R.attr.state_enabled}, Color.GRAY));
         }

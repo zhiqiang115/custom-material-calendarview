@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="header_week_bg">#EEEEEE</color>
-    <color name="header_week_text">#000000</color>
+    <color name="calendar_header_week_bg">#EEEEEE</color>
+    <color name="calendar_header_week_text">#000000</color>
     <!--<color name="header_week_text">#7E7E7E</color>-->
     <!--<color name="item_day_selected">#000000</color>-->
-    <color name="item_day_selected">#FFF6B2</color>
-    <color name="line_week">#EEEEEE</color>
+    <color name="calendar_item_day_selected">#FFF6B2</color>
+    <color name="calendar_line_week">#EEEEEE</color>
+    <color name="calendar_bg_notification">#EB4956</color>
+    <color name="calendar_color_disable_day">#CCCCCC</color>
+    <color name="calendar_color_enable_day">#000000</color>
+    <color name="calendar_color_background_note">#EB4956</color>
+    <color name="calendar_color_negative_price">#000000</color>
+    <color name="calendar_color_positive_price">#EB4956</color>
 </resources>

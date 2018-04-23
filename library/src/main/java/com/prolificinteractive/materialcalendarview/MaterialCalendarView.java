@@ -1822,6 +1822,7 @@ public class MaterialCalendarView extends ViewGroup {
         private final CalendarDay minDate;
         private final CalendarDay maxDate;
         private final boolean cacheCurrentPosition;
+        private final List<CustomMonth> mCustomMonth;
 
         private State(final StateBuilder builder) {
             calendarMode = builder.calendarMode;
@@ -1829,6 +1830,7 @@ public class MaterialCalendarView extends ViewGroup {
             minDate = builder.minDate;
             maxDate = builder.maxDate;
             cacheCurrentPosition = builder.cacheCurrentPosition;
+            this.mCustomMonth = builder.mCustomMonth;
         }
 
         /**
@@ -1846,6 +1848,7 @@ public class MaterialCalendarView extends ViewGroup {
         private boolean cacheCurrentPosition = false;
         private CalendarDay minDate = null;
         private CalendarDay maxDate = null;
+        private List<CustomMonth> mCustomMonth = null;
 
         public StateBuilder() {
         }
@@ -1883,6 +1886,14 @@ public class MaterialCalendarView extends ViewGroup {
             return this;
         }
 
+        public List<CustomMonth> getCustomMonth() {
+            return mCustomMonth;
+        }
+
+        public StateBuilder setCustomMonth(List<CustomMonth> customMonth) {
+            mCustomMonth = customMonth;
+            return this;
+        }
 
         /**
          * @param calendar set the minimum selectable date, null for no minimum
@@ -1990,6 +2001,7 @@ public class MaterialCalendarView extends ViewGroup {
         firstDayOfWeek = state.firstDayOfWeek;
         minDate = state.minDate;
         maxDate = state.maxDate;
+        this.mCustomMonth = state.mCustomMonth;
 
         // Recreate adapter
         final CalendarPagerAdapter<?> newAdapter;

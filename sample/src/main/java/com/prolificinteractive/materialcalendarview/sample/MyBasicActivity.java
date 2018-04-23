@@ -64,7 +64,7 @@ public class MyBasicActivity extends AppCompatActivity implements OnDateSelected
         List<CustomDay> customDayList = new ArrayList<>();
         customDayList.add(new CustomDay(5, Arrays.asList("abc", "qwe"),  8000));
         customDayList.add(new CustomDay(6, new ArrayList<String>(),  -14000));
-        customDayList.add(new CustomDay(19, Arrays.asList("abc"),  null));
+        customDayList.add(new CustomDay(19, Arrays.asList("abc"),  null, true, "nnnn"));
         customDayList.add(new CustomDay(20, Arrays.asList("abc"),  null));
         customDayList.add(new CustomDay(21, Arrays.asList("abc"),  null));
 //        customDayList.add(new CustomDay(10, null, null));
@@ -98,6 +98,7 @@ public class MyBasicActivity extends AppCompatActivity implements OnDateSelected
         widget.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
                 .commit();
+        widget.state().edit().setCustomMonth(customMonthList).commit();
 
 //        widget.setWeekDayTextAppearance();
 //        widget.state().edit()
