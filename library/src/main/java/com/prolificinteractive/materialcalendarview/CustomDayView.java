@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Created by cuonghc on 4/10/18.
  */
@@ -30,6 +33,7 @@ public class CustomDayView extends LinearLayout {
     private int mColorDisableDay;
     private int mColorEnableDay;
     private int mPaddingNoteItem;
+    private NumberFormat mNumberFormat;
 
     public CustomDayView(Context context) {
         super(context);
@@ -39,6 +43,7 @@ public class CustomDayView extends LinearLayout {
         mColorDisableDay = context.getResources().getColor(R.color.calendar_color_disable_day);
         mColorEnableDay = context.getResources().getColor(R.color.calendar_color_enable_day);
         mPaddingNoteItem = context.getResources().getDimensionPixelOffset(R.dimen.padding_note_item);
+        mNumberFormat = new DecimalFormat("#,###");
         init();
     }
 
@@ -176,10 +181,10 @@ public class CustomDayView extends LinearLayout {
         TextView textView = new TextView(getContext());
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.text_size_custom_day));
         if (price >= 0) {
-            textView.setText("+" + String.valueOf(price));
+            textView.setText("+" + mNumberFormat.format(price));
             textView.setTextColor(mColorNegativePrice);
         } else {
-            textView.setText(String.valueOf(price));
+            textView.setText(mNumberFormat.format(price));
             textView.setTextColor(mColorPositivePrice);
         }
         textView.setGravity(Gravity.CENTER);

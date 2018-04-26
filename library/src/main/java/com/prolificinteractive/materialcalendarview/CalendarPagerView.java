@@ -25,7 +25,7 @@ import static java.util.Calendar.DATE;
 abstract class CalendarPagerView extends ViewGroup implements View.OnClickListener {
 
     protected static final int DEFAULT_DAYS_IN_WEEK = 7;
-    protected static int DEFAULT_MAX_WEEKS = 6;
+    protected int DEFAULT_MAX_WEEKS = 6;
     protected static final int DAY_NAMES_ROW = 1;
     private static final Calendar tempWorkingCalendar = CalendarUtils.getInstance();
     private final ArrayList<WeekDayView> weekDayViews = new ArrayList<>();

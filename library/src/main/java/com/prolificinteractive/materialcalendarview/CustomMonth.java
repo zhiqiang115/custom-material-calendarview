@@ -9,11 +9,18 @@ import java.util.List;
 
 public class CustomMonth {
     private CalendarDay mCalendarDay;
+    private int mTotal = 0;
     private List<CustomDay> mCustomDays;
 
     public CustomMonth(CalendarDay calendarDay, List<CustomDay> customDays) {
         mCalendarDay = calendarDay;
         mCustomDays = customDays;
+    }
+
+    public CustomMonth(CalendarDay calendarDay, List<CustomDay> customDays, int total) {
+        mCalendarDay = calendarDay;
+        mCustomDays = customDays;
+        mTotal = total;
     }
 
     public CalendarDay getCalendarDay() {
@@ -30,5 +37,13 @@ public class CustomMonth {
 
     public void setCustomDays(List<CustomDay> customDays) {
         mCustomDays = customDays;
+    }
+
+    public int getTotal() {
+        return mTotal;
+    }
+
+    public void setTotal(int total) {
+        mTotal = total;
     }
 }

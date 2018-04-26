@@ -59,8 +59,37 @@ public class MyBasicActivity extends AppCompatActivity implements OnDateSelected
 //                .setMaximumDate(CalendarDay.from(2018, 3, 30))
 //                .commit();
 
+
+        widget.setSelectionColor(Color.YELLOW);
+
+
+        widget.state().edit()
+                .setFirstDayOfWeek(Calendar.SUNDAY)
+                .commit();
+//        widget.state().edit().setCustomMonth(customMonthList).commit();
+
+//        widget.setWeekDayTextAppearance();
+//        widget.state().edit()
+//                .setMinimumDate(CalendarDay.from(2017, 6, 1))
+//                .commit();
+//
+//        widget.state().edit()
+//                .setMinimumDate(CalendarDay.from(2018, 6, 1))
+//                .commit();
+
+        widget.setShowOtherDates(MaterialCalendarView.SHOW_ALL);
+        widget.state().edit().isCacheCalendarPositionEnabled(true).commit();
+//        widget.setPadding(0,0,0,0);
+        //Setup initial text
+//        text_view_title.setText(getSelectedDatesString());
+        text_view_title.setText(FORMATTER.format(widget.getCurrentDate().getDate()));
+        widget.setTileSize(LinearLayout.LayoutParams.MATCH_PARENT);
+//        update();
+    }
+
+    private void update(int month) {
         List<CustomMonth> customMonthList = new ArrayList<>();
-        CalendarDay calendarDay = CalendarDay.from(2018, 2, 1);
+        CalendarDay calendarDay = CalendarDay.from(2018, month, 1);
         List<CustomDay> customDayList = new ArrayList<>();
         customDayList.add(new CustomDay(5, Arrays.asList("abc", "qwe"),  8000));
         customDayList.add(new CustomDay(6, new ArrayList<String>(),  -14000));
@@ -92,29 +121,8 @@ public class MyBasicActivity extends AppCompatActivity implements OnDateSelected
         CustomMonth customMonth = new CustomMonth(calendarDay, customDayList);
         customMonthList.add(customMonth);
         widget.setCustomMonth(customMonthList);
-        widget.setSelectionColor(Color.YELLOW);
-
-
-        widget.state().edit()
-                .setFirstDayOfWeek(Calendar.SUNDAY)
-                .commit();
         widget.state().edit().setCustomMonth(customMonthList).commit();
-
-//        widget.setWeekDayTextAppearance();
-//        widget.state().edit()
-//                .setMinimumDate(CalendarDay.from(2017, 6, 1))
-//                .commit();
-//
-//        widget.state().edit()
-//                .setMinimumDate(CalendarDay.from(2018, 6, 1))
-//                .commit();
-
-        widget.setShowOtherDates(MaterialCalendarView.SHOW_ALL);
-//        widget.setPadding(0,0,0,0);
-        //Setup initial text
-//        text_view_title.setText(getSelectedDatesString());
-        text_view_title.setText(FORMATTER.format(widget.getCurrentDate().getDate()));
-        widget.setTileSize(LinearLayout.LayoutParams.MATCH_PARENT);
+//        widget.invalidateDecorators();
     }
 
     @Override
@@ -131,7 +139,11 @@ public class MyBasicActivity extends AppCompatActivity implements OnDateSelected
 
     @OnClick(R.id.btn_next)
     void onNext() {
-        widget.goToNext();
+//        widget.goToNext();
+        update(widget.getCurrentDate().getMonth());
+//        widget.notifyDataSetChanged();
+//        widget.invalidateDecorators();
+//        widget.notifyDataSetChanged();
     }
 
     @OnClick(R.id.btn_pre)
